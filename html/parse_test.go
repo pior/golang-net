@@ -476,6 +476,32 @@ func TestParseFragmentForeignContentTemplates(t *testing.T) {
 	}
 }
 
+func TestParserIsNotBreakingConditionalComment(t *testing.T) {
+	html := "<html><head></head><body><!--[if expression]><![endif]--></body></html>"
+	rendered := parseAndRender(t, html)
+
+	if html != rendered {
+		t.Errorf("Expected\n%s\nGot\n%s", html, rendered)
+	}
+}
+
+func parseAndRender(t *testing.T, input string) string {
+	t.Helper()
+
+	root, err := Parse(bytes.NewBufferString(input))
+	if err != nil {
+		t.Errorf("got nil error, want non-nil")
+	}
+
+	var b bytes.Buffer
+
+	if err := Render(&b, root); err != nil {
+		t.Fatal(err)
+	}
+
+	return b.String()
+}
+
 func BenchmarkParser(b *testing.B) {
 	buf, err := ioutil.ReadFile("testdata/go1.html")
 	if err != nil {
