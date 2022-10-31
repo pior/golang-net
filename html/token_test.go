@@ -314,12 +314,12 @@ var tokenTests = []tokenTest{
 	{
 		"comment3",
 		"a<!--x>-->z",
-		"a$<!--x&gt;-->$z",
+		"a$<!--x>-->$z",
 	},
 	{
 		"comment4",
 		"a<!--x->-->z",
-		"a$<!--x-&gt;-->$z",
+		"a$<!--x->-->$z",
 	},
 	{
 		"comment5",
@@ -334,7 +334,7 @@ var tokenTests = []tokenTest{
 	{
 		"comment7",
 		"a<!---<>z",
-		"a$<!---&lt;&gt;z-->",
+		"a$<!---<>z-->",
 	},
 	{
 		"comment8",
